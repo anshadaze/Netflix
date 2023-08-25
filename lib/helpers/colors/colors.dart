@@ -2,6 +2,6 @@ import 'package:flutter/material.dart';
 
 const backgroundColor=Colors.black;
 const KWhiteColor=Colors.white;
-const kBottonColorBlue=Colors.blue;
+final kBottonColorBlue=Colors.blueAccent[700];
 const kBottonColorWhite=Colors.white;
 const kBlackColor=Colors.black;
