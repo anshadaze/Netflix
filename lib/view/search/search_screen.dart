@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix/constants/constants.dart';
-import 'package:netflix/view/search/widgets/search_idle.dart';
 import 'package:netflix/view/search/widgets/search_result.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -25,7 +24,7 @@ class SearchScreen extends StatelessWidget {
           KHeight,
          
           //  Expanded(child: SearchIdleWidget()),
-           Expanded(child:SearchResultWidget()),
+           const Expanded(child:SearchResultWidget()),
         ],),
       ) ),
        );

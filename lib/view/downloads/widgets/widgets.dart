@@ -10,7 +10,7 @@ class SmartDownloads extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       children: [
         Icon(
           Icons.settings,
@@ -67,19 +67,19 @@ class CenterSection extends StatelessWidget {
               ),
               DownloadsImageWidget(
                 imageList: imageList[0],
-                margin: EdgeInsets.only(left: 170,top: 38),
+                margin: const EdgeInsets.only(left: 170,top: 38),
                 angle: 25,
                 size: Size(size.width * 0.35, size.width * 0.55),
               ),
               DownloadsImageWidget(
                 imageList: imageList[1],
-                margin: EdgeInsets.only(right: 170,top: 38),
+                margin: const EdgeInsets.only(right: 170,top: 38),
                 angle: -25,
                 size: Size(size.width * 0.35, size.width * 0.55),
               ),
               DownloadsImageWidget(
                 imageList: imageList[2],
-                margin: EdgeInsets.only(bottom: 25,top: 38),
+                margin: const EdgeInsets.only(bottom: 25,top: 38),
                 size: Size(size.width * 0.4, size.width * 0.6),
                 radius: 8,
               ),
