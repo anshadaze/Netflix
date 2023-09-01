@@ -1,12 +1,13 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:netflix/constants/constants.dart';
+import 'package:netflix/controller/download_screen_provider.dart';
 import 'package:netflix/helpers/colors/colors.dart';
 import 'package:netflix/model/movie_info_model.dart';
 import 'package:netflix/model/tmdb_api_response.dart';
-import 'package:netflix/services/api_key.dart';
 import 'package:netflix/services/apiendpoint.dart';
 import 'package:netflix/services/base_client.dart';
+import 'package:provider/provider.dart';
 
 class SmartDownloads extends StatelessWidget {
   const SmartDownloads({
@@ -28,12 +29,6 @@ class SmartDownloads extends StatelessWidget {
   }
 }
 
-
-
-
-
-
-
 class CenterSection extends StatefulWidget {
   CenterSection({super.key});
 
@@ -42,9 +37,6 @@ class CenterSection extends StatefulWidget {
 }
 
 class _CenterSectionState extends State<CenterSection> {
- List imageList = [];
-
-
   @override
   void initState() {
     // TODO: implement initState
@@ -52,12 +44,12 @@ class _CenterSectionState extends State<CenterSection> {
     initializeImages();
   }
 
-initializeImages() async {
-  dynamic result = await apiCall(ApiEndPoints.trendingMovies);
-  result == null ? debugPrint("null") : debugPrint("not null");
-  setState(() {
-    if (result is TMDBApiResponseModel) { // Check if the result is of the correct type
-      imageList = result.result.map((MovieInfoModel movieInfo) {
+  initializeImages() async {
+    dynamic result = await apiCall(ApiEndPoints.trendingMovies);
+    result == null ? debugPrint("null") : debugPrint("not null");
+    if (result is TMDBApiResponseModel) {
+      // Check if the result is of the correct type
+      List newImageList = result.result.map((MovieInfoModel movieInfo) {
         if (movieInfo.posterPath == null) {
           return null;
         }
@@ -66,12 +58,15 @@ initializeImages() async {
             'https://image.tmdb.org/t/p/w500${movieInfo.posterPath}?api_key=b2dee3b855c4ea705ff5dda3c0201768';
         return imageUrl;
       }).toList();
+
+      Provider.of<DownloadScreenProvider>(context, listen: false)
+          .updateImageList(newImageList);
     }
-  });
-}
+  }
 
   @override
   Widget build(BuildContext context) {
+    var downloadProvider = Provider.of<DownloadScreenProvider>(context);
     final Size size = MediaQuery.of(context).size;
     return Column(
       children: [
@@ -93,41 +88,38 @@ initializeImages() async {
           height: size.width,
           child: Stack(
             alignment: Alignment.center,
-            children:imageList.length<3?[]: [
-              CircleAvatar(
-                radius: size.width * 0.37,
-                backgroundColor: Colors.grey.withOpacity(0.5),
-              ),
-              DownloadsImageWidget(
-                imageList: imageList[0],
-                margin: const EdgeInsets.only(left: 170,top: 38),
-                angle: 25,
-                size: Size(size.width * 0.35, size.width * 0.55),
-              ),
-              DownloadsImageWidget(
-                imageList: imageList[1],
-                margin: const EdgeInsets.only(right: 170,top: 38),
-                angle: -25,
-                size: Size(size.width * 0.35, size.width * 0.55),
-              ),
-              DownloadsImageWidget(
-                imageList: imageList[2],
-                margin: const EdgeInsets.only(bottom: 25,top: 38),
-                size: Size(size.width * 0.4, size.width * 0.6),
-                radius: 8,
-              ),
-            ],
+            children: downloadProvider.imageList.length < 3
+                ? []
+                : [
+                    CircleAvatar(
+                      radius: size.width * 0.37,
+                      backgroundColor: Colors.grey.withOpacity(0.5),
+                    ),
+                    DownloadsImageWidget(
+                      imageList: downloadProvider.imageList[0],
+                      margin: const EdgeInsets.only(left: 170, top: 38),
+                      angle: 25,
+                      size: Size(size.width * 0.35, size.width * 0.55),
+                    ),
+                    DownloadsImageWidget(
+                      imageList: downloadProvider.imageList[1],
+                      margin: const EdgeInsets.only(right: 170, top: 38),
+                      angle: -25,
+                      size: Size(size.width * 0.35, size.width * 0.55),
+                    ),
+                    DownloadsImageWidget(
+                      imageList: downloadProvider.imageList[2],
+                      margin: const EdgeInsets.only(bottom: 25, top: 38),
+                      size: Size(size.width * 0.4, size.width * 0.6),
+                      radius: 8,
+                    ),
+                  ],
           ),
         ),
       ],
     );
   }
 }
-
-
-
-
-
 
 class BottomSection extends StatelessWidget {
   const BottomSection({super.key});
@@ -175,8 +167,6 @@ class BottomSection extends StatelessWidget {
     );
   }
 }
-
-
 
 class DownloadsImageWidget extends StatelessWidget {
   const DownloadsImageWidget({

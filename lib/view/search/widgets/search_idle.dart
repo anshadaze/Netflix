@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix/constants/constants.dart';
 import 'package:netflix/helpers/colors/colors.dart';
+import 'package:netflix/model/movie_info_model.dart';
+import 'package:netflix/services/apiendpoint.dart';
+import 'package:netflix/services/base_client.dart';
 import 'package:netflix/view/search/widgets/title.dart';
 
-const imageUrl =
-    "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/iMUp44Tr7QrGidu1ldHF0NuG0h2.jpg";
 
 class SearchIdleWidget extends StatelessWidget {
   const SearchIdleWidget({super.key});
@@ -18,11 +19,31 @@ class SearchIdleWidget extends StatelessWidget {
         const SearchTextTitle(title: "Top Searches",),
         KHeight,
         Expanded(
-          child: ListView.separated(
-            shrinkWrap: true,
-              itemBuilder: (context, index) =>const TopSearchItemTile() ,
-              separatorBuilder: (context, index) =>KHeight20 ,
-              itemCount: 10),
+          child: FutureBuilder(
+            future: apiCall(ApiEndPoints.trendingMovies),
+            builder: (context, snapshot) {
+              if(!snapshot.hasData){
+                 const Center(
+                      child: Column(
+                        children: [
+                          CircularProgressIndicator(color: Colors.blue,),
+                          Text('Please wait'),
+                        ],
+                      ),
+                    );
+              }
+              if (snapshot.data == null) {
+                    return const Text("No data found");
+                  }
+                  return   ListView.separated(
+                 shrinkWrap: true,
+                itemBuilder: (context, index) => TopSearchItemTile(movieInfo: snapshot.data.result[index],) ,
+                separatorBuilder: (context, index) =>KHeight20 ,
+                itemCount:20);
+            },
+        
+           
+          ),
         )
       ],
     );
@@ -32,23 +53,28 @@ class SearchIdleWidget extends StatelessWidget {
 
 
 class TopSearchItemTile extends StatelessWidget {
-  const TopSearchItemTile({super.key});
+  final MovieInfoModel movieInfo;
+  const TopSearchItemTile({super.key,required this.movieInfo});
 
   @override
   Widget build(BuildContext context) {
     final screenWidth=MediaQuery.of(context).size.width;
+     String url ='https://image.tmdb.org/t/p/w500${movieInfo.posterPath}?api_key=b2dee3b855c4ea705ff5dda3c0201768';
+
     return Row(children: [
    Container(
    width: screenWidth*0.35,
    height: 65,
-    decoration: const BoxDecoration(
+    decoration: BoxDecoration(
       image: DecorationImage(
         fit: BoxFit.cover,
-        image: NetworkImage(imageUrl))
+        image: NetworkImage(url))
     ),
    ),
    KWidth,
-   const Expanded(child: Text("Movie Name",style: TextStyle(color: KWhiteColor,fontWeight: FontWeight.bold,fontSize: 16),),),
+    Expanded(
+    child: Text(movieInfo.title??"No Movie Name Found",
+    style: TextStyle(color: KWhiteColor,fontWeight: FontWeight.bold,fontSize: 16),),),
    const CircleAvatar(
     backgroundColor: KWhiteColor,
     radius: 25,

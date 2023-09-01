@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:netflix/constants/constants.dart';
 import 'package:netflix/helpers/colors/colors.dart';
-import 'package:netflix/view/new_and_hot/widgets/coming_soon_widget.dart';
-import 'package:netflix/view/new_and_hot/widgets/everyones_watching_widget.dart';
+import 'package:netflix/view/newandhot/widgets/coming_soon_widget.dart';
+import 'package:netflix/view/newandhot/widgets/everyones_watching_widget.dart';
 
 class NewAndHotScreen extends StatelessWidget {
   const NewAndHotScreen({super.key});

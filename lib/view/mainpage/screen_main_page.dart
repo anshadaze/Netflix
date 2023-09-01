@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:netflix/view/downloads/downloads_screen.dart';
-import 'package:netflix/view/fast_laugh/fast_laugh_Screen.dart';
+import 'package:netflix/view/fastlaugh/fast_laugh_Screen.dart';
 import 'package:netflix/view/home/home_screen.dart';
-import 'package:netflix/view/main_page/widgets/bottom_nav.dart';
-import 'package:netflix/view/new_and_hot/new_and_hot_screen.dart';
+import 'package:netflix/view/mainpage/widgets/bottom_nav.dart';
+import 'package:netflix/view/newandhot/new_and_hot_screen.dart';
 import 'package:netflix/view/search/search_screen.dart';
 
 class ScreenMainPage extends StatelessWidget {

@@ -1,43 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:netflix/constants/constants.dart';
+import 'package:netflix/model/movie_info_model.dart';
+import 'package:netflix/model/tmdb_api_response.dart';
+import 'package:netflix/services/api_key.dart';
+import 'package:netflix/services/apiendpoint.dart';
+import 'package:netflix/services/base_client.dart';
 import 'package:netflix/view/search/widgets/title.dart';
 
- const imageUrl=    "https://image.tmdb.org/t/p/original/wigZBAmNrIhxp2FNGOROUAeHvdh.jpg";
 
 class SearchResultWidget extends StatelessWidget {
-  const SearchResultWidget({super.key});
-
+  final String apiQuery;
+   SearchResultWidget({super.key,required this.apiQuery});
 
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SearchTextTitle(title: "Movies & TV"),
         KHeight,
-        Expanded(child: GridView.count(
-          shrinkWrap: true,
-          crossAxisCount: 3,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          childAspectRatio: 1/1.4,
-          children:List.generate(20, (index){
-          return   const MainCard();
-          }),))
+        Expanded(child: FutureBuilder(
+          future: apiCall(ApiEndPoints.searchmovie + apiQuery),
+          builder: (context, snapshot) {
+            if(!snapshot.hasData){
+              return Center(
+                child: Column(children: [
+                   CircularProgressIndicator(color: Colors.blue,),
+                          Text('Please wait'),
+                ]),
+              );
+            }
+
+           
+          TMDBApiResponseModel response=snapshot.data;
+
+            if (response.result.isEmpty) {
+                    return  const Center(child: Text('No Movies Found',style: TextStyle(fontSize: 20),));
+                  }
+
+                  return  GridView.count(
+            shrinkWrap: true,
+            crossAxisCount: 3,
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
+            childAspectRatio: 1/1.4,
+            children:List.generate(response.result.length, (index){
+              MovieInfoModel movieInfo = response.result[index];
+                if (movieInfo.posterPath != null) {
+            String imageUrl = 'https://image.tmdb.org/t/p/w500${movieInfo.posterPath}?api_key=$apikey';
+            return MainCard(imageUrl: imageUrl);
+          }
+          return SizedBox();
+            }),);
+          },
+         
+        ))
       ],
     );
   }
 }
 
 class MainCard extends StatelessWidget {
-  const MainCard({super.key});
+  final String imageUrl;
+   MainCard({super.key,required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        image: const DecorationImage(image: NetworkImage(imageUrl),
+        image: DecorationImage(image: NetworkImage(imageUrl),
         fit: BoxFit.cover),
         borderRadius: BorderRadius.circular(7)
       ),
