@@ -2,6 +2,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:netflix/constants/constants.dart';
 import 'package:netflix/helpers/colors/colors.dart';
+import 'package:netflix/model/movie_info_model.dart';
+import 'package:netflix/model/tmdb_api_response.dart';
+import 'package:netflix/services/api_key.dart';
+import 'package:netflix/services/apiendpoint.dart';
+import 'package:netflix/services/base_client.dart';
 
 class SmartDownloads extends StatelessWidget {
   const SmartDownloads({
@@ -29,13 +34,41 @@ class SmartDownloads extends StatelessWidget {
 
 
 
-class CenterSection extends StatelessWidget {
+class CenterSection extends StatefulWidget {
   CenterSection({super.key});
-  final List imageList = [
-    "https://image.tmdb.org/t/p/original/wigZBAmNrIhxp2FNGOROUAeHvdh.jpg",
-    "https://image.tmdb.org/t/p/w500//gPbM0MK8CP8A174rmUwGsADNYKD.jpg",
-    "https://image.tmdb.org/t/p/original/bvYjhsbxOBwpm8xLE5BhdA3a8CZ.jpg"
-  ];
+
+  @override
+  State<CenterSection> createState() => _CenterSectionState();
+}
+
+class _CenterSectionState extends State<CenterSection> {
+ List imageList = [];
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initializeImages();
+  }
+
+initializeImages() async {
+  dynamic result = await apiCall(ApiEndPoints.trendingMovies);
+  result == null ? debugPrint("null") : debugPrint("not null");
+  setState(() {
+    if (result is TMDBApiResponseModel) { // Check if the result is of the correct type
+      imageList = result.result.map((MovieInfoModel movieInfo) {
+        if (movieInfo.posterPath == null) {
+          return null;
+        }
+
+        String imageUrl =
+            'https://image.tmdb.org/t/p/w500${movieInfo.posterPath}?api_key=b2dee3b855c4ea705ff5dda3c0201768';
+        return imageUrl;
+      }).toList();
+    }
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +93,7 @@ class CenterSection extends StatelessWidget {
           height: size.width,
           child: Stack(
             alignment: Alignment.center,
-            children: [
+            children:imageList.length<3?[]: [
               CircleAvatar(
                 radius: size.width * 0.37,
                 backgroundColor: Colors.grey.withOpacity(0.5),

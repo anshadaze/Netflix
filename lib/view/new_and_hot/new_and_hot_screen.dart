@@ -26,11 +26,12 @@ class NewAndHotScreen extends StatelessWidget {
                     size: 30,
                   ),
                   KWidth,
-                  Container(
+                  SizedBox(
                     width: 30,
                     height: 30,
-                    color: Colors.blue,
+                    child: Image.asset("assets/avatar.png"),
                   ),
+                  KWidth
                 ],
                 bottom: TabBar(
                     unselectedLabelColor: KWhiteColor,
@@ -61,18 +62,15 @@ class NewAndHotScreen extends StatelessWidget {
 Widget _BuildEveryonesWatching() {
   return ListView.builder(
     itemCount: 10,
-    itemBuilder: (context, index) => const EveryonesWatchingWidget(),);
+    itemBuilder: (context, index) => const EveryonesWatchingWidget(),
+  );
 }
-
-
 
 Widget _buildComingSoon(BuildContext context) {
- 
   return ListView.builder(
     itemCount: 10,
-    itemBuilder:(context, index) {
-    return const ComingSoonWidget();
-  },);
+    itemBuilder: (context, index) {
+      return const ComingSoonWidget();
+    },
+  );
 }
-
-

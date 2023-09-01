@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
               ),
               scrollNotier.value == true
                   ? AnimatedContainer(
-                    duration: const Duration(milliseconds: 100),
+                      duration: const Duration(milliseconds: 100),
                       width: double.infinity,
                       height: 80,
                       color: Colors.black.withOpacity(0.6),
@@ -61,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                           Row(
                             children: [
                               Image.network(
-                                "https://images.ctfassets.net/4cd45et68cgf/Rx83JoRDMkYNlMC9MKzcB/2b14d5a59fc3937afd3f03191e19502d/Netflix-Symbol.png?w=700&h=456",
+                                "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Netflix_2015_N_logo.svg/640px-Netflix_2015_N_logo.svg.png",
                                 width: 40,
                                 height: 40,
                               ),
@@ -72,22 +72,25 @@ class HomeScreen extends StatelessWidget {
                                 size: 30,
                               ),
                               KWidth,
-                              Container(
+                              SizedBox(
                                 width: 30,
                                 height: 30,
-                                color: Colors.blue,
+                                child: Image.asset("assets/avatar.png"),
                               ),
+                              KWidth
                             ],
                           ),
                           KHeight,
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text("TV Shows",style:kHomeTitleText ,),
-                            Text("Movies",style:kHomeTitleText ),
-                            Text("Categories",style:kHomeTitleText )
-                          ],
+                            children: [
+                              Text(
+                                "TV Shows",
+                                style: kHomeTitleText,
+                              ),
+                              Text("Movies", style: kHomeTitleText),
+                              Text("Categories", style: kHomeTitleText)
+                            ],
                           ),
                         ],
                       ),

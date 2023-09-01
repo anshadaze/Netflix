@@ -22,3 +22,6 @@ TextStyle kHomeTitleText=const TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.bold
 );
+
+
+

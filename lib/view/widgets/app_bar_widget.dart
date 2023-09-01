@@ -20,10 +20,10 @@ class AppBarWidget extends StatelessWidget {
           size: 30,
         ),
         KWidth,
-        Container(
+        SizedBox(
           width: 30,
           height: 30,
-          color: Colors.blue,
+          child: Image.asset("assets/avatar.png"),
         ),
         KWidth
       ],
