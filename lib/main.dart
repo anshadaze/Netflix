@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix/controller/download_screen_provider.dart';
 import 'package:netflix/controller/search_query_provider.dart';
+import 'package:netflix/controller/videoplayer_provider.dart';
 import 'package:netflix/helpers/colors/colors.dart';
 import 'package:netflix/view/mainpage/screen_main_page.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => DownloadScreenProvider(),),
-        ChangeNotifierProvider(create: (context) => SearchQueryProvider(),)
+        ChangeNotifierProvider(create: (context) => SearchQueryProvider(),),
+        ChangeNotifierProvider(create: (context) => VideoPlayerProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

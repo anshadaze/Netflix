@@ -37,7 +37,7 @@ class SearchIdleWidget extends StatelessWidget {
                   }
                   return   ListView.separated(
                  shrinkWrap: true,
-                itemBuilder: (context, index) => TopSearchItemTile(movieInfo: snapshot.data.result[index],) ,
+                itemBuilder: (context, index) => TopSearchItemTile(movieInfo: snapshot.data.results[index],) ,
                 separatorBuilder: (context, index) =>KHeight20 ,
                 itemCount:20);
             },
@@ -74,7 +74,7 @@ class TopSearchItemTile extends StatelessWidget {
    KWidth,
     Expanded(
     child: Text(movieInfo.title??"No Movie Name Found",
-    style: TextStyle(color: KWhiteColor,fontWeight: FontWeight.bold,fontSize: 16),),),
+    style: const TextStyle(color: KWhiteColor,fontWeight: FontWeight.bold,fontSize: 16),),),
    const CircleAvatar(
     backgroundColor: KWhiteColor,
     radius: 25,

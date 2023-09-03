@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:netflix/constants/constants.dart';
+import 'package:netflix/services/apiendpoint.dart';
 import 'package:netflix/view/home/widgets/background_card.dart';
 import 'package:netflix/view/home/widgets/number_title_card.dart';
 import 'package:netflix/view/widgets/main_title_card.dart';
@@ -29,24 +30,28 @@ class HomeScreen extends StatelessWidget {
           child: Stack(
             children: [
               ListView(
-                children: const [
+                children: const[
                   BackgroundCard(),
                   MainTitleCard(
-                    title: "Released in the past year",
+                    title: "New Releases",
+                    apiUrl: ApiEndPoints.moviepopular,
                   ),
                   KHeight,
                   MainTitleCard(
                     title: "Trending Now",
+                    apiUrl: ApiEndPoints.trendingMovies,
                   ),
                   KHeight,
                   NumberTitleCard(),
                   KHeight,
                   MainTitleCard(
-                    title: "Tense Dramas",
+                    title: "Popular Shows",
+                    apiUrl: ApiEndPoints.tvpopular,
                   ),
                   KHeight,
                   MainTitleCard(
-                    title: "South Indian Cinima",
+                    title: "Upcoming",
+                    apiUrl: ApiEndPoints.upcoming,
                   )
                 ],
               ),

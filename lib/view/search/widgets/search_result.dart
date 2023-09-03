@@ -25,7 +25,7 @@ class SearchResultWidget extends StatelessWidget {
           future: apiCall(ApiEndPoints.searchmovie + apiQuery),
           builder: (context, snapshot) {
             if(!snapshot.hasData){
-              return Center(
+              return const Center(
                 child: Column(children: [
                    CircularProgressIndicator(color: Colors.blue,),
                           Text('Please wait'),
@@ -36,7 +36,7 @@ class SearchResultWidget extends StatelessWidget {
            
           TMDBApiResponseModel response=snapshot.data;
 
-            if (response.result.isEmpty) {
+            if (response.results.isEmpty) {
                     return  const Center(child: Text('No Movies Found',style: TextStyle(fontSize: 20),));
                   }
 
@@ -46,13 +46,13 @@ class SearchResultWidget extends StatelessWidget {
             mainAxisSpacing: 8,
             crossAxisSpacing: 8,
             childAspectRatio: 1/1.4,
-            children:List.generate(response.result.length, (index){
-              MovieInfoModel movieInfo = response.result[index];
+            children:List.generate(response.results.length, (index){
+              MovieInfoModel movieInfo = response.results[index];
                 if (movieInfo.posterPath != null) {
             String imageUrl = 'https://image.tmdb.org/t/p/w500${movieInfo.posterPath}?api_key=$apikey';
             return MainCard(imageUrl: imageUrl);
           }
-          return SizedBox();
+          return const SizedBox();
             }),);
           },
          

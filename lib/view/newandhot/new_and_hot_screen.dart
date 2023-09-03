@@ -13,7 +13,7 @@ class NewAndHotScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
           appBar: PreferredSize(
-              preferredSize: Size.fromHeight(90),
+              preferredSize: const Size.fromHeight(90),
               child: AppBar(
                 title: const Text(
                   "New& Hot",
@@ -53,24 +53,20 @@ class NewAndHotScreen extends StatelessWidget {
                     ]),
               )),
           body: TabBarView(
-            children: [_buildComingSoon(context), _BuildEveryonesWatching()],
+            children: [_buildComingSoon(context),
+             _BuildEveryonesWatching()
+             ],
           )),
     );
   }
 }
 
 Widget _BuildEveryonesWatching() {
-  return ListView.builder(
-    itemCount: 10,
-    itemBuilder: (context, index) => const EveryonesWatchingWidget(),
-  );
+  return const EveryonesWatchingWidget();
 }
 
 Widget _buildComingSoon(BuildContext context) {
-  return ListView.builder(
-    itemCount: 10,
-    itemBuilder: (context, index) {
-      return const ComingSoonWidget();
-    },
-  );
-}
+  return const ComingSoonWidget();
+    }
+
+

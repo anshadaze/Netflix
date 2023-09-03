@@ -49,7 +49,7 @@ class _CenterSectionState extends State<CenterSection> {
     result == null ? debugPrint("null") : debugPrint("not null");
     if (result is TMDBApiResponseModel) {
       // Check if the result is of the correct type
-      List newImageList = result.result.map((MovieInfoModel movieInfo) {
+      List newImageList = result.results.map((MovieInfoModel movieInfo) {
         if (movieInfo.posterPath == null) {
           return null;
         }

@@ -1,17 +1,61 @@
 
 import 'package:flutter/material.dart';
+import 'package:netflix/controller/download_screen_provider.dart';
 import 'package:netflix/helpers/colors/colors.dart';
+import 'package:netflix/model/movie_info_model.dart';
+import 'package:netflix/services/api_key.dart';
+import 'package:netflix/services/apiendpoint.dart';
+import 'package:netflix/services/base_client.dart';
+import 'package:netflix/view/fastlaugh/widgets/fat_laugh_videoplayer.dart';
+import 'package:provider/provider.dart';
 
-class VideoListItem extends StatelessWidget {
+final dummyVideoUrls = [
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4"
+];
+
+class VideoListItem extends StatefulWidget {
   final int index;
-  const VideoListItem({super.key, required this.index});
+ VideoListItem({super.key, required this.index});
 
   @override
+  State<VideoListItem> createState() => _VideoListItemState();
+  
+}
+
+class _VideoListItemState extends State<VideoListItem> {
+  // List imageList=[];
+
+
+  
+  fetchTrendingPosterPath()async{
+    dynamic result=await apiCall(ApiEndPoints.trendingMovies);
+    List newimageList=result.results.map((MovieInfoModel result){
+      String imageUrl="https://image.tmdb.org/t/p/w500/${result.posterPath}?api_key=$apikey";
+      return imageUrl;
+    }).toList();
+
+     Provider.of<DownloadScreenProvider>(context, listen: false)
+          .updateImageList(newimageList);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchTrendingPosterPath();
+  }
+  @override
   Widget build(BuildContext context) {
+    var imageListProvider = Provider.of<DownloadScreenProvider>(context);
+    final videoUrl=dummyVideoUrls[widget.index % dummyVideoUrls.length];
+
     return Stack(
       children: [
-        Container(
-          color: Colors.accents[index % Colors.accents.length],
+        FastLaughVideoPlayer(videoUrl: videoUrl, 
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -37,20 +81,22 @@ class VideoListItem extends StatelessWidget {
                 ),
 
               ///right side
-              const Column(
+              imageListProvider.imageList.isEmpty?SizedBox(): Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical:10),
+                    padding: const EdgeInsets.symmetric(vertical:10),
                     child: CircleAvatar(
                       radius: 30,
-                      backgroundImage: NetworkImage( "https://image.tmdb.org/t/p/w500//gPbM0MK8CP8A174rmUwGsADNYKD.jpg",),
+                      backgroundImage: NetworkImage( 
+                       imageListProvider. imageList[widget.index],
+                      ),
                     ),
                   ),
-                  VideoActionsWidget(icon: Icons.emoji_emotions, title:"LOL"),
-                   VideoActionsWidget(icon: Icons.add, title:"My List"),
-                   VideoActionsWidget(icon: Icons.share, title:"Share"),
-                    VideoActionsWidget(icon: Icons.play_arrow, title:"Play"),
+                  const VideoActionsWidget(icon: Icons.emoji_emotions, title:"LOL"),
+                   const VideoActionsWidget(icon: Icons.add, title:"My List"),
+                   const VideoActionsWidget(icon: Icons.share, title:"Share"),
+                    const VideoActionsWidget(icon: Icons.play_arrow, title:"Play"),
                 ],
               )
             ],
