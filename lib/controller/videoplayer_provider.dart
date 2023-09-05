@@ -18,13 +18,13 @@ class VideoPlayerProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+
   @override
   void dispose() {
+    videoPlayerController.dispose();
     // TODO: implement dispose
     super.dispose();
-    videoPlayerController.dispose();
   }
-
 
   
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:netflix/controller/download_screen_provider.dart';
+import 'package:netflix/controller/bottomnavbar_provider.dart';
+import 'package:netflix/controller/home_screen_backgroundcard_provider.dart';
+import 'package:netflix/controller/home_scrollprovider.dart';
 import 'package:netflix/controller/search_query_provider.dart';
+import 'package:netflix/controller/trendingmovie_intialize_provider.dart';
 import 'package:netflix/controller/videoplayer_provider.dart';
 import 'package:netflix/helpers/colors/colors.dart';
 import 'package:netflix/view/mainpage/screen_main_page.dart';
@@ -19,9 +22,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => DownloadScreenProvider(),),
         ChangeNotifierProvider(create: (context) => SearchQueryProvider(),),
         ChangeNotifierProvider(create: (context) => VideoPlayerProvider()),
+        ChangeNotifierProvider(create: (context) =>HomeBackgroundCardImageProvider() ),
+        ChangeNotifierProvider(create: (context) =>HomeScrollProvider() ),
+        ChangeNotifierProvider(create: (context) =>SelectedIndexProvider() ),
+        ChangeNotifierProvider(create: (context) =>TrendingMovieInitializeProvider() ),
+          
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -29,7 +37,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent),
           fontFamily:GoogleFonts.montserrat().fontFamily,
-          // backgroundColor: Colors.black,
           scaffoldBackgroundColor: backgroundColor,
          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(background: Colors.black),
          textTheme:const TextTheme(

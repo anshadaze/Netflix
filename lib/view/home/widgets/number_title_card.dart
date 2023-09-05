@@ -19,9 +19,9 @@ class NumberTitleCard extends StatelessWidget {
           future: apiCall(ApiEndPoints.tvtoprate),
           builder: (context, snapshot) {
             if(!snapshot.hasData){
-               return Center(
+               return const Center(
                       child: Column(
-                        children: const [
+                        children: [
                           CircularProgressIndicator(color: Colors.blue,),
                           Text('Please wait'),
                         ],

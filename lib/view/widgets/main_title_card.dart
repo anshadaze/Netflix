@@ -21,9 +21,9 @@ class MainTitleCard extends StatelessWidget {
       future: apiCall(apiUrl),
       builder: (context, snapshot) {
         if(!snapshot.hasData){
-           Center(
+           const Center(
                       child: Column(
-                        children: const [
+                        children: [
                           CircularProgressIndicator(color: Colors.blue,),
                           Text('Please wait'),
                         ],
