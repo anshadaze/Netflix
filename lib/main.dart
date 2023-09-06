@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) =>HomeScrollProvider() ),
         ChangeNotifierProvider(create: (context) =>SelectedIndexProvider() ),
         ChangeNotifierProvider(create: (context) =>TrendingMovieInitializeProvider() ),
+
           
 
       ],
