@@ -30,7 +30,7 @@ class ComingSoonInfoCard extends StatelessWidget {
         ),
         SizedBox(
           width: size.width - 50,
-          height: 450,
+          height: 480,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -38,19 +38,7 @@ class ComingSoonInfoCard extends StatelessWidget {
                 videoImage: imageUrl,
               ),
               const Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Text(
-                  //   movieInfo.originalTitle ?? 'Empty Title',
-                  //   style: TextStyle(
-                  //     fontSize: 20,
-                  //     fontWeight: FontWeight.bold,
-                  //   ),
-                  //   overflow: TextOverflow
-                  //       .ellipsis, // Add this line for text overflow control
-                  //   maxLines:
-                  //       2, // You can adjust this value to control the number of visible lines
-                  // ),
                   Spacer(),
                   Row(
                     children: [

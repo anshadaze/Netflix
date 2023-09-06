@@ -36,6 +36,9 @@ class _VideoListItemState extends State<VideoListItem> {
 
     return Consumer<TrendingMovieInitializeProvider>(
       builder: (context, value, child) {
+        if(value.isLoading){
+                return const Center(child: CircularProgressIndicator(),);
+              }
         return Stack(
         children: [
           FastLaughVideoPlayer(videoUrl: videoUrl, 

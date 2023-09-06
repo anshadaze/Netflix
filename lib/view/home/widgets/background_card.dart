@@ -17,44 +17,39 @@ class _BackgroundCardState extends State<BackgroundCard> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<HomeBackgroundCardImageProvider>(context,listen: false).setImage();
+    Provider.of<HomeBackgroundCardImageProvider>(context,listen: false).initializeBackgroundCard();
   }
-  
+ 
    
 
   @override
   Widget build(BuildContext context) {
-    // var imageProvider=Provider.of<HomeBackgroundCardImageProvider>(context);
-    return Consumer<HomeBackgroundCardImageProvider>(
-      builder: (context, value, child) {
-        return   Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 600,
-            decoration:  BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(value.imageUrl ??"image not found"),
-              ),
+    var imageProvider=Provider.of<HomeBackgroundCardImageProvider>(context);
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          height: 600,
+          decoration:  BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(imageProvider.imageUrl ??"image not found"),
             ),
           ),
-            const Positioned(
-            bottom: 10,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomButtonWidget(icon: Icons.add,title: "My List",),
-                PlayButton(),
-                CustomButtonWidget(icon:Icons.info , title:"info")
-              ],
-            ),
-          )
-        ],
-      );
-      },
-     
+        ),
+          const Positioned(
+          bottom: 10,
+          left: 0,
+          right: 0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CustomButtonWidget(icon: Icons.add,title: "My List",),
+              PlayButton(),
+              CustomButtonWidget(icon:Icons.info , title:"info")
+            ],
+          ),
+        )
+      ],
     );
   }
 }

@@ -26,24 +26,28 @@ class _FastLaughVideoPlayerState extends State<FastLaughVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    var videoPlayerProvider=Provider.of<VideoPlayerProvider>(context);
-    return SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: videoPlayerProvider.videoPlayerController.value.isInitialized
-            ? AspectRatio(
-                aspectRatio: videoPlayerProvider.videoPlayerController.value.aspectRatio,
-                child: GestureDetector(
-                    onTap: () {
+    return Consumer<VideoPlayerProvider>(
+      builder: (context, videoPlayerProvider, child) {
+        return  SizedBox(
+          width: double.infinity,
+          height: double.infinity,
+          child: videoPlayerProvider.videoPlayerController.value.isInitialized
+              ? AspectRatio(
+                  aspectRatio: videoPlayerProvider.videoPlayerController.value.aspectRatio,
+                  child: GestureDetector(
+                      onTap: () {
+                        
+                          videoPlayerProvider.videoPause();
                       
-                        videoPlayerProvider.videoPause();
-                    
-                    },
-                    child: VideoPlayer(videoPlayerProvider.videoPlayerController)))
-            : const Center(
-                child: CircularProgressIndicator(),
-              )
-              );
+                      },
+                      child: VideoPlayer(videoPlayerProvider.videoPlayerController)))
+              : const Center(
+                  child: CircularProgressIndicator(),
+                )
+                );
+      },
+      
+    );
        
       
   }

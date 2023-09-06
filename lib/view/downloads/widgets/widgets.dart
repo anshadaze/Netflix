@@ -67,7 +67,13 @@ class _CenterSectionState extends State<CenterSection> {
           height: size.width,
           child: Consumer<TrendingMovieInitializeProvider>(
             builder: (context, value, child) {
-              return     Stack(
+              if(value.isLoading){
+                return const Center(child: CircularProgressIndicator(),);
+              }else if (value.imageList.isEmpty){
+                return const Text("No data available");
+              }else{
+
+                 return     Stack(
             alignment: Alignment.center,
             children: value.imageList.length < 3
                 ? []
@@ -96,6 +102,9 @@ class _CenterSectionState extends State<CenterSection> {
                     ),
                   ],
               );
+
+              }
+             
             },
          
           ),

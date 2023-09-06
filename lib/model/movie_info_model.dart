@@ -6,6 +6,7 @@ class MovieInfoModel{
    String?releaseDate;
    String? originalTitle;
    String overview = "";
+    bool? video;
 
 
 
@@ -22,6 +23,7 @@ class MovieInfoModel{
     required this.releaseDate,
      required this.originalTitle,
        required this.overview,
+        required this.video,
    }
     );
 
