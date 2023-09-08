@@ -8,4 +8,6 @@ class HomeScrollProvider extends ChangeNotifier {
     isScrolling = value;
     notifyListeners();
   }
-}
+
+
+  }

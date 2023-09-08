@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:netflix/constants/constants.dart';
+import 'package:netflix/controller/searchresult_provider.dart';
 import 'package:netflix/model/movie_info_model.dart';
 import 'package:netflix/model/tmdb_api_response.dart';
 import 'package:netflix/services/api_key.dart';
 import 'package:netflix/services/apiendpoint.dart';
 import 'package:netflix/services/base_client.dart';
 import 'package:netflix/view/search/widgets/title.dart';
+import 'package:provider/provider.dart';
 
 
-class SearchResultWidget extends StatelessWidget {
+class SearchResultWidget extends StatefulWidget {
   final String apiQuery;
    SearchResultWidget({super.key,required this.apiQuery});
 
+  @override
+  State<SearchResultWidget> createState() => _SearchResultWidgetState();
+}
 
+class _SearchResultWidgetState extends State<SearchResultWidget> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<SearchResultProvider>(context,listen: false).fetchSearchResult(widget.apiQuery);
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -21,39 +33,22 @@ class SearchResultWidget extends StatelessWidget {
       children: [
         const SearchTextTitle(title: "Movies & TV"),
         KHeight,
-        Expanded(child: FutureBuilder(
-          future: apiCall(ApiEndPoints.searchmovie + apiQuery),
-          builder: (context, snapshot) {
-            if(!snapshot.hasData){
-              return const Center(
-                child: Column(children: [
-                   CircularProgressIndicator(color: Colors.blue,),
-                          Text('Please wait'),
-                ]),
-              );
+        Expanded(child: Consumer<SearchResultProvider>(
+          builder: (context, provider, child) {
+            return  GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 3,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 1/1.4,
+              children:List.generate(provider.searchResultMovies.length, (index){
+                MovieInfoModel movieInfo = provider.searchResultMovies[index];
+                  if (movieInfo.posterPath != null) {
+              String imageUrl = 'https://image.tmdb.org/t/p/w500${movieInfo.posterPath}?api_key=$apikey';
+              return MainCard(imageUrl: imageUrl);
             }
-
-           
-          TMDBApiResponseModel response=snapshot.data;
-
-            if (response.results.isEmpty) {
-                    return  const Center(child: Text('No Movies Found',style: TextStyle(fontSize: 20),));
-                  }
-
-                  return  GridView.count(
-            shrinkWrap: true,
-            crossAxisCount: 3,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
-            childAspectRatio: 1/1.4,
-            children:List.generate(response.results.length, (index){
-              MovieInfoModel movieInfo = response.results[index];
-                if (movieInfo.posterPath != null) {
-            String imageUrl = 'https://image.tmdb.org/t/p/w500${movieInfo.posterPath}?api_key=$apikey';
-            return MainCard(imageUrl: imageUrl);
-          }
-          return const SizedBox();
-            }),);
+            return const SizedBox();
+              }),);
           },
          
         ))

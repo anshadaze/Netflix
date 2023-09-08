@@ -6,7 +6,7 @@ class TrendingMovieInitializeProvider extends ChangeNotifier{
   bool isLoading=true;
 
    void initializeImages() async {
-         imageList=await DownloadsServices().getTrendingMovies();
+ imageList=await DownloadsServices().getTrendingMovies();
          isLoading=false;
          notifyListeners();
     }

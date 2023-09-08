@@ -6,11 +6,23 @@ import 'package:netflix/services/base_client.dart';
 import 'package:netflix/view/home/widgets/number_card.dart';
 import 'package:netflix/view/widgets/main_title.dart';
 
-class NumberTitleCard extends StatelessWidget {
+class NumberTitleCard extends StatefulWidget {
   const NumberTitleCard({
     super.key,
   });
 
+  @override
+  State<NumberTitleCard> createState() => _NumberTitleCardState();
+}
+
+class _NumberTitleCardState extends State<NumberTitleCard> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    
+  }
   @override
   Widget build(BuildContext context) {
     List imageList=[];
