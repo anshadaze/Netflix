@@ -19,7 +19,6 @@ class _FastLaughVideoPlayerState extends State<FastLaughVideoPlayer> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Provider.of<VideoPlayerProvider>(context,listen: false).VideoPlayerState(widget.videoUrl);
   }

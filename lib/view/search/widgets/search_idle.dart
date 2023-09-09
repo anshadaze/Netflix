@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix/constants/constants.dart';
+import 'package:netflix/controller/internetconnectivity_provider.dart';
 import 'package:netflix/helpers/colors/colors.dart';
 import 'package:netflix/model/movie_info_model.dart';
 import 'package:netflix/controller/searchidl_provider.dart';
@@ -17,10 +18,9 @@ class SearchIdleWidget extends StatefulWidget {
 class _SearchIdleWidgetState extends State<SearchIdleWidget> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    Provider.of<SearchIDLProvider>(context, listen: false)
-        .fetchSearchIDLMovies();
+    Provider.of<SearchIDLProvider>(context, listen: false).fetchSearchIDLMovies();
+        Provider.of<InternetConnectivityProvider>(context,listen: false).getInternetConnectivity(context);
   }
 
   @override

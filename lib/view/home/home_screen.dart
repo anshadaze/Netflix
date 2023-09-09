@@ -1,7 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:netflix/constants/constants.dart';
 import 'package:netflix/controller/home_scrollprovider.dart';
+import 'package:netflix/controller/internetconnectivity_provider.dart';
 import 'package:netflix/services/apiendpoint.dart';
 import 'package:netflix/view/home/widgets/background_card.dart';
 import 'package:netflix/view/home/widgets/number_title_card.dart';
@@ -9,8 +11,25 @@ import 'package:netflix/view/widgets/main_title_card.dart';
 import 'package:provider/provider.dart';
 
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+ 
+
+ @override
+  void initState() {
+    super.initState();
+    Provider.of<InternetConnectivityProvider>(context,listen: false).getInternetConnectivity(context);
+  }
+
+ 
+
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -27,34 +46,9 @@ class HomeScreen extends StatelessWidget {
               }
               return true;
             },
+            
             child: Stack(
               children: [
-                ListView(
-                  children: const[
-                    BackgroundCard(),
-                    MainTitleCard(
-                      title: "New Releases",
-                      apiUrl: ApiEndPoints.moviepopular,
-                    ),
-                    KHeight,
-                    MainTitleCard(
-                      title: "Trending Now",
-                      apiUrl: ApiEndPoints.trendingMovies,
-                    ),
-                    KHeight,
-                    NumberTitleCard(),
-                    KHeight,
-                    MainTitleCard(
-                      title: "Popular Shows",
-                      apiUrl: ApiEndPoints.tvpopular,
-                    ),
-                    KHeight,
-                    MainTitleCard(
-                      title: "Upcoming",
-                      apiUrl: ApiEndPoints.upcoming,
-                    )
-                  ],
-                ),
                  scrollProvider.isScrolling == true
                     ? AnimatedContainer(
                         duration: const Duration(milliseconds: 100),
@@ -100,7 +94,37 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                       )
-                    : KHeight
+                    : KHeight,
+                ListView(
+                  children: const[
+                    BackgroundCard(),
+                       KHeight,
+                    NumberTitleCard(),
+                    KHeight,
+                    MainTitleCard(
+                      title: "New Releases",
+                      apiUrl: ApiEndPoints.moviepopular,
+                    ),
+                    KHeight,
+                    MainTitleCard(
+                      title: "Trending Now",
+                      apiUrl: ApiEndPoints.trendingMovies,
+                    ),
+                    KHeight,
+                    
+                    
+                    MainTitleCard(
+                      title: "Popular Shows",
+                      apiUrl: ApiEndPoints.tvpopular,
+                    ),
+                    KHeight,
+                    MainTitleCard(
+                      title: "Upcoming",
+                      apiUrl: ApiEndPoints.upcoming,
+                    )
+                  ],
+                ),
+                
               ],
             ),
           );

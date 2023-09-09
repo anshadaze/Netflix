@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netflix/constants/constants.dart';
+import 'package:netflix/controller/internetconnectivity_provider.dart';
 import 'package:netflix/controller/searchresult_provider.dart';
 import 'package:netflix/model/movie_info_model.dart';
 import 'package:netflix/model/tmdb_api_response.dart';
@@ -21,9 +22,9 @@ class SearchResultWidget extends StatefulWidget {
 class _SearchResultWidgetState extends State<SearchResultWidget> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Provider.of<SearchResultProvider>(context,listen: false).fetchSearchResult(widget.apiQuery);
+    Provider.of<InternetConnectivityProvider>(context,listen: false).getInternetConnectivity(context);
   }
   @override
   Widget build(BuildContext context) {

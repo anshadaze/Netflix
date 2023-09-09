@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:netflix/controller/bottomnavbar_provider.dart';
 import 'package:provider/provider.dart';
 
-// ValueNotifier<int>indexChangeNotifier=ValueNotifier(0);
-
 class BottomNavigationWidgets extends StatelessWidget {
   const BottomNavigationWidgets({super.key});
 

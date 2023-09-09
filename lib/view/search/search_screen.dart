@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
 
-  // String query='';
   @override
   Widget build(BuildContext context) {
      final searchQueryModel = Provider.of<SearchQueryProvider>(context);

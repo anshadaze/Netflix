@@ -15,7 +15,6 @@ class BackgroundCard extends StatefulWidget {
 class _BackgroundCardState extends State<BackgroundCard> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Provider.of<HomeBackgroundCardImageProvider>(context,listen: false).initializeBackgroundCard();
   }

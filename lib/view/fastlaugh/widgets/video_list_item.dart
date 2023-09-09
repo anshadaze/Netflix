@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:netflix/controller/internetconnectivity_provider.dart';
 import 'package:netflix/controller/trendingmovie_intialize_provider.dart';
 import 'package:netflix/helpers/colors/colors.dart';
 import 'package:netflix/view/fastlaugh/widgets/fast_laugh_videoplayer.dart';
@@ -29,6 +30,7 @@ class _VideoListItemState extends State<VideoListItem> {
     // TODO: implement initState
     super.initState();
     Provider.of<TrendingMovieInitializeProvider>(context,listen: false).initializeImages();
+    Provider.of<InternetConnectivityProvider>(context,listen: false).getInternetConnectivity(context);
   }
   @override
   Widget build(BuildContext context) {

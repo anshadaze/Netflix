@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:netflix/constants/constants.dart';
+import 'package:netflix/controller/internetconnectivity_provider.dart';
 import 'package:netflix/controller/trendingmovie_intialize_provider.dart';
 import 'package:netflix/helpers/colors/colors.dart';
 import 'package:provider/provider.dart';
@@ -36,9 +37,9 @@ class _CenterSectionState extends State<CenterSection> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Provider.of<TrendingMovieInitializeProvider>(context,  listen: false).initializeImages();
+    Provider.of<InternetConnectivityProvider>(context,listen: false).getInternetConnectivity(context);
   }
   
 
