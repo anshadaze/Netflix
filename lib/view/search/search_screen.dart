@@ -11,6 +11,7 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
      final searchQueryModel = Provider.of<SearchQueryProvider>(context);
     return Scaffold(
       body:SafeArea(child:

@@ -23,8 +23,7 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
   @override
   void initState() {
     super.initState();
-    Provider.of<SearchResultProvider>(context,listen: false).fetchSearchResult(widget.apiQuery);
-    Provider.of<InternetConnectivityProvider>(context,listen: false).getInternetConnectivity(context);
+      Provider.of<InternetConnectivityProvider>(context,listen: false).getInternetConnectivity(context);
   }
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,9 @@ class _SearchResultWidgetState extends State<SearchResultWidget> {
         const SearchTextTitle(title: "Movies & TV"),
         KHeight,
         Expanded(child: Consumer<SearchResultProvider>(
+          
           builder: (context, provider, child) {
+             Provider.of<SearchResultProvider>(context,listen: false).fetchSearchResult(widget.apiQuery);
             return  GridView.count(
               shrinkWrap: true,
               crossAxisCount: 3,
