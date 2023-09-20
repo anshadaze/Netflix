@@ -49,11 +49,44 @@ class _HomeScreenState extends State<HomeScreen> {
             
             child: Stack(
               children: [
-                 scrollProvider.isScrolling == true
+                 
+              
+                ListView(
+                  children: const[
+                      BackgroundCard(),
+                       KHeight,
+                    NumberTitleCard(),
+                    KHeight,
+                    MainTitleCard(
+                      title: "New Releases",
+                      apiUrl: ApiEndPoints.moviepopular,
+                    ),
+                    KHeight,
+                    MainTitleCard(
+                      title: "Trending Now",
+                      apiUrl: ApiEndPoints.trendingMovies,
+                    ),
+                    KHeight,
+                    
+                    
+                    MainTitleCard(
+                      title: "Popular Shows",
+                      apiUrl: ApiEndPoints.tvpopular,
+                    ),
+                    KHeight,
+                    MainTitleCard(
+                      title: "Upcoming",
+                      apiUrl: ApiEndPoints.upcoming,
+                    )
+                  ],
+                ),
+                   scrollProvider.isScrolling == true
                     ? AnimatedContainer(
+                         
                         duration: const Duration(milliseconds: 100),
                         width: double.infinity,
                         height: 80,
+                        
                         color: Colors.black.withOpacity(0.6),
                         child: Column(
                           children: [
@@ -95,35 +128,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       )
                     : KHeight,
-                ListView(
-                  children: const[
-                    BackgroundCard(),
-                       KHeight,
-                    NumberTitleCard(),
-                    KHeight,
-                    MainTitleCard(
-                      title: "New Releases",
-                      apiUrl: ApiEndPoints.moviepopular,
-                    ),
-                    KHeight,
-                    MainTitleCard(
-                      title: "Trending Now",
-                      apiUrl: ApiEndPoints.trendingMovies,
-                    ),
-                    KHeight,
-                    
-                    
-                    MainTitleCard(
-                      title: "Popular Shows",
-                      apiUrl: ApiEndPoints.tvpopular,
-                    ),
-                    KHeight,
-                    MainTitleCard(
-                      title: "Upcoming",
-                      apiUrl: ApiEndPoints.upcoming,
-                    )
-                  ],
-                ),
                 
               ],
             ),

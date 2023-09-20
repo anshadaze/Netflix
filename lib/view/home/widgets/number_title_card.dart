@@ -53,7 +53,7 @@ class _NumberTitleCardState extends State<NumberTitleCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                const MainTitle(
-                title:"Top 10 TV Shows in india Today"),
+                title:"  Top 10 TV Shows in india Today"),
                 KHeight,
                LimitedBox(
                 maxHeight: 200,

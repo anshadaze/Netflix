@@ -23,12 +23,13 @@ class _BackgroundCardState extends State<BackgroundCard> {
 
   @override
   Widget build(BuildContext context) {
+     final Size size = MediaQuery.of(context).size;
     var imageProvider=Provider.of<HomeBackgroundCardImageProvider>(context);
     return Stack(
       children: [
         Container(
           width: double.infinity,
-          height: 600,
+          height: size.height*0.7,
           decoration:  BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(imageProvider.imageUrl ??"image not found"),
